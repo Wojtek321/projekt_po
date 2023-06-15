@@ -1,4 +1,4 @@
-import csv
+from openpyxl import Workbook, load_workbook
 from firma import FirmaTransportowa, Sklep, ZakladUslugowy
 from bank import Bank
 
@@ -7,12 +7,13 @@ class CentrumObslugiKart:
         self.__archiwum = []
         self.__lista_bankow = []
         self.__lista_firm = []
+        self.wb = Workbook()
 
     def poczatek_pliku(self):
-        with open('archiwum.csv', 'w', newline='') as plik:
-            writer = csv.writer(plik)
-            writer.writerow(['bank','NIP firmy','imie','nazwisko','kwota'])
-        plik.close()
+
+        ws = self.wb.active
+        ws.append(["Nazwa banku","NIP firmy","numer karty","imie","nazwisko","kwota"])
+        self.wb.save("Archiwum.xlsx")
 
     def dodajFirme(self, rodzaj, nazwa, NIP, nr_konta, saldo):
         if rodzaj == "sklep":
@@ -29,11 +30,15 @@ class CentrumObslugiKart:
                 self.__lista_firm.remove(firma)
                 break
 
-    def przegladFirm(self, rodzaj):
-        for firma in self.__lista_firm:
-            if getattr(firma, 'getRodzaj') and callable(getattr(firma, 'getRodzaj')):
-                if firma.getRodzaj() == rodzaj:
-                    print(firma.getNazwa() + "\n")
+    def przegladFirm(self, *args):
+        if len(args) == 0:
+            return self.__lista_firm
+        else:
+            for firma in self.__lista_firm:
+                if getattr(firma, 'getRodzaj') and callable(getattr(firma, 'getRodzaj')):
+                    if firma.getRodzaj() == args[0]:
+                        print(firma.getNazwa() + "\n")
+
 
     def dodajBank(self, nazwa):
         bank = Bank(nazwa)
@@ -46,8 +51,7 @@ class CentrumObslugiKart:
                 self.__lista_bankow.remove(bank)
 
     def przegladBankow(self):
-        for bank in self.__lista_bankow:
-            print(getattr(bank, 'nazwa'))
+        return self.__lista_bankow
 
     def platnosc(self, NIP, nr_karty, kwota, bank_klienta, bank_firmy):
         for i in range (0,len(self.__lista_bankow)):
@@ -69,20 +73,15 @@ class CentrumObslugiKart:
                         break
 
     def ZapiszDoPliku(self, bank, NIP, imie, nazwisko, kwota):
-        # do zmiany
-        nowy_wpis = [bank,NIP,imie,nazwisko,kwota]
-        # lista = [item for item in archiwum[0].values()]
-        with open('archiwum.csv','a',newline='') as plik:
-            writer = csv.writer(plik)
-            writer.writerow(nowy_wpis)
-        plik.close()
+        ws = self.wb.active
+        ws.append([bank.getNazwa()],[NIP],[imie],[nazwisko],[kwota])
+        self.wb.save("Archiwum.xlsx")
 
     def OdczytZpliku(self):
-        with open('archiwum.csv','r') as plik:
-            reader = csv.reader(plik)
-            for row in reader:
-                print(row)
-        plik.close()
+        wb = load_workbook("Archiwum.xlsx")
+        ws = wb.active
+        for wiersz in ws.iter_rows(values_only=True):
+            print(wiersz)
 
     def zarchiwizuj(self, bank, NIP, nr_karty, imie, nazwisko, kwota):
         platnosc = {
@@ -96,4 +95,62 @@ class CentrumObslugiKart:
         self.__archiwum.append(platnosc)
 
     def przeszukiwanieArchiwum(self):
-        pass
+        while(True):
+            print("----Archiwum----")
+            print("1. historia platnosci firmy")
+            print("2. historia platnosci przechodzacych przez dany bank")
+            print("3. historia platnosci dana karta")
+            print("4. historia platnosci danej osoby")
+            print("5. historia platnosci wzgledem danej kwoty")
+            print("6. Wyjdz z archiwum")
+            wybor = input(print("Wybierz numer(1-5): "))
+            match wybor:
+                case 1:
+                    NIP_firmy = input(print("Podaj NIP firmy: "))
+                    for i in range(0,len(self.__archiwum)):
+                        if self.__archiwum[i][1] == NIP_firmy:
+                            print(self.__archiwum[i])
+
+                case 2:
+                    nazwa_banku = input(print("Podaj nazwe banku: "))
+                    for i in range(0,len(self.__archiwum)):
+                        if self.__archiwum[i][0] == nazwa_banku:
+                            print(self.__archiwum[i])
+
+                case 3:
+                    nr_karty = input(print("Podaj numer karty: "))
+                    for i in range(0, len(self.__archiwum)):
+                        if self.__archiwum[i][2] == nr_karty:
+                            print(self.__archiwum[i])
+
+                case 4:
+                    imie = input(print("Podaj imie osoby: "))
+                    nazwisko = input(print("Podaj nazwisko osoby: "))
+                    for i in range(0, len(self.__archiwum)):
+                        if self.__archiwum[i][3] == imie and self.__archiwum[i][4] == nazwisko:
+                            print(self.__archiwum[i])
+
+                case 5:
+                    kwota = input(print("Podaj kwote: "))
+                    print("Wybierz co chcesz zrobic: ")
+                    print("1. Znajdz historie platnosci rowna danej kwocie")
+                    print("2. Znajdz historie platnosci od danej kwoty w gore")
+                    print("3. Znajdz historie platnosci ponizej danej kwoty")
+                    match wybor:
+                        case 1:
+                            for i in range(0,len(self.__archiwum)):
+                                if self.__archiwum[i][5] == kwota:
+                                    print(self.__archiwum[i])
+
+                        case 2:
+                            for i in range(0, len(self.__archiwum)):
+                                if self.__archiwum[i][5] > kwota:
+                                    print(self.__archiwum[i])
+
+                        case 3:
+                            for i in range(0, len(self.__archiwum)):
+                                if self.__archiwum[i][5] < kwota:
+                                    print(self.__archiwum[i])
+
+                case 6:
+                    break

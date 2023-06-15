@@ -74,3 +74,6 @@ class Bank:
 
     def getFirmy(self):
         return self.__lista_firm
+
+    def getNazwa(self):
+        return self.__nazwa

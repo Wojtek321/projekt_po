@@ -13,6 +13,9 @@ class Firma(ABC):
     def getNazwa(self):
         return self.__nazwa
 
+    def getNIP(self):
+        return self.__NIP
+
 
 class ZakladUslugowy(Firma):
     def __init__(self, nazwa, NIP, nr_konta, saldo):
