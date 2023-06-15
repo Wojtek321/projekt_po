@@ -17,7 +17,7 @@ while(True):
     match wybor:
         case 1:
             os.system('cls')
-            print("----Zarzadzanie firmami----")
+            print("----Zarzadzanie firmami----ffffffffff")
             print("1. Dodaj firme")
             print("2. Usun firme")
             print("3. Przegladaj firmy")
