@@ -49,8 +49,9 @@ while(True):
                                 bank.usunFirme(NIP)
 
                 case 3:
-                    pass
-
+                    firmy = centrum.przegladFirm()
+                    for firma in firmy:
+                        print(f"{firma.getNazwa()} {firma.getNIP()}")
 
         case 2:
             os.system('cls')
@@ -101,13 +102,42 @@ while(True):
 
             match wybor:
                 case 1:
-                    pass
+                    imie = str(input("Podaj imie wlasciciela: "))
+                    nazwisko = str(input("Podaj nazwisko wlasciciela: "))
+                    rodzaj = str(input("Podaj rodzaj karty(kredytowa, debetowa, bankomatowa): "))
+                    nr_karty = str(input("Podaj numer karty: "))
+
+                    for bank in centrum.przegladBankow():
+                        for osoba in bank.przegladOsob():
+                            if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
+                                osoba.konto.dodajKarte(rodzaj, nr_karty)
                 case 2:
-                    pass
+                    imie = str(input("Podaj imie wlasciciela: "))
+                    nazwisko = str(input("Podaj nazwisko wlasciciela: "))
+                    nr_karty = str(input("Podaj numer karty, ktora chcesz usunac: "))
+                    for bank in centrum.przegladBankow():
+                        for osoba in bank.przegladOsob():
+                            if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
+                                osoba.konto.usunKarte(nr_karty)
+
                 case 3:
-                    pass
+                    imie = str(input("Podaj imie wlasciciela: "))
+                    nazwisko = str(input("Podaj nazwisko wlasciciela: "))
+                    kwota = float(input("Wplacana kwota: "))
+
+                    for bank in centrum.przegladBankow():
+                        for osoba in bank.przegladOsob():
+                            if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
+                                osoba.konto.wplac(kwota)
                 case 4:
-                    pass
+                    imie = str(input("Podaj imie wlasciciela: "))
+                    nazwisko = str(input("Podaj nazwisko wlasciciela: "))
+                    kwota = float(input("Wyplacana kwota: "))
+
+                    for bank in centrum.przegladBankow():
+                        for osoba in bank.przegladOsob():
+                            if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
+                                osoba.konto.wyplac(kwota)
 
         case 5:
             os.system('cls')

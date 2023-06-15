@@ -30,14 +30,8 @@ class CentrumObslugiKart:
                 self.__lista_firm.remove(firma)
                 break
 
-    def przegladFirm(self, *args):
-        if len(args) == 0:
-            return self.__lista_firm
-        else:
-            for firma in self.__lista_firm:
-                if getattr(firma, 'getRodzaj') and callable(getattr(firma, 'getRodzaj')):
-                    if firma.getRodzaj() == args[0]:
-                        print(firma.getNazwa() + "\n")
+    def przegladFirm(self):
+        return self.__lista_firm
 
 
     def dodajBank(self, nazwa):

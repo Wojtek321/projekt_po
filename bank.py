@@ -15,8 +15,7 @@ class Bank:
                 self.__lista_osob.remove(osoba)
 
     def przegladOsob(self):
-        for osoba in self.__lista_osob:
-            print(osoba.getImie() + " " + osoba.getNazwisko())
+        return self.__lista_osob
 
     def dodajFirme(self, rodzaj, nazwa, NIP, nr_konta, saldo):
         if rodzaj == "sklep":
