@@ -169,6 +169,7 @@ while(True):
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
                                 osoba.konto.wyplac(kwota)
                 case 5:
+                    os.system('cls')
                     imie = str(input("Podaj imie wlasciciela: "))
                     nazwisko = str(input("Podaj nazwisko wlasciciela: "))
 
@@ -177,7 +178,6 @@ while(True):
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
                                 for karta in osoba.getKonto().getKarty():
                                     print(f"{karta.getRodzaj()} {karta.getNr_karty()}")
-                    os.system('cls')
                     time.sleep(5)
 
 

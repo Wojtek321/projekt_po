@@ -40,14 +40,17 @@ class CentrumObslugiKart:
         return self.__lista_bankow
 
     def platnosc(self, NIP, nr_karty, kwota, bank_klienta, bank_firmy):
-        szukane_konto = bank_klienta.znajdzKonto(nr_karty)
-        szukane_konto.wyplac(kwota)
+        if bank_klienta.autoryzuj(nr_karty,kwota):
+            szukane_konto = bank_klienta.znajdzKonto(nr_karty)
+            szukane_konto.wyplac(kwota)
 
-        for firma in bank_firmy.przegladFirm():
-            if firma.getNIP() == NIP:
-                firma.getKonto().wplac(kwota)
+            for firma in bank_firmy.przegladFirm():
+                if firma.getNIP() == NIP:
+                    firma.getKonto().wplac(kwota)
 
-        self.zarchiwizuj(bank_klienta,bank_firmy,NIP,nr_karty,kwota)
+            self.zarchiwizuj(bank_klienta,bank_firmy,NIP,nr_karty,kwota)
+        else:
+            print("karta nie zostala zautoryzowana")
 
 
     def ZapiszDoPliku(self):
