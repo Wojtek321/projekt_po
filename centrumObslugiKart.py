@@ -1,19 +1,16 @@
 from openpyxl import Workbook, load_workbook
 from firma import FirmaTransportowa, Sklep, ZakladUslugowy
 from bank import Bank
-
+import pandas as pd
 class CentrumObslugiKart:
     def __init__(self):
         self.__archiwum = []
         self.__lista_bankow = []
         self.__lista_firm = []
-        # self.wb = Workbook()
+        self.wb = pd.DataFrame(columns=["Nazwa banku", "NIP firmy", "numer karty", "imie", "nazwisko", "kwota"])
 
-    # def poczatek_pliku(self):
-    #
-    #     ws = self.wb.active
-    #     ws.append(["Nazwa banku","NIP firmy","numer karty","imie","nazwisko","kwota"])
-    #     self.wb.save("Archiwum.xlsx")
+    def poczatek_pliku(self):
+        self.ZapiszDoPliku()
 
     def dodajFirme(self, rodzaj, nazwa, NIP, nr_konta, saldo):
         if rodzaj == "sklep":
@@ -66,42 +63,26 @@ class CentrumObslugiKart:
                         szukane_konto_firmy.saldo -= kwota
                         break
 
-    # def ZapiszDoPliku(self):
-    #     wb = load_workbook('Archiwum.xlsx')
-    #     arkusz = wb.active
-    #     powtarzajace_sie_dane = []
-    #     for wiersz in arkusz.iter_rows(values_only=True):
-    #         for dane_excel in wiersz:
-    #             if dane_excel:
-    #                 for dane_archiwum in self.__archiwum:
-    #                     if any(dane_excel in dane for dane in dane_archiwum.values()):
-    #                         powtarzajace_sie_dane.append(dane_excel)
-    #
-    #     brakujace_dane = []
-    #     for dane_archiwum in self.__archiwum:
-    #         if not any(dane == dane_excel for dane in dane_archiwum.values() for dane_excel in powtarzajace_sie_dane):
-    #             brakujace_dane.append(dane_archiwum)
-    #
-    #     for dane in brakujace_dane:
-    #         arkusz.append(list(dane.values()))
+    def ZapiszDoPliku(self):
+        self.wb.to_excel("Archiwum.xlsx", index=False)
 
 
-    # def OdczytZpliku(self):
-    #     wb = load_workbook("Archiwum.xlsx")
-    #     ws = wb.active
-    #     for wiersz in ws.iter_rows(values_only=True):
-    #         print(wiersz)
+    def OdczytZpliku(self):
+        df = pd.read_excel("Archiwum.xlsx")
+        print(df)
 
     def zarchiwizuj(self, bank, NIP, nr_karty, imie, nazwisko, kwota):
         platnosc = {
-            "nazwa_banku": f"{getattr(bank, 'nazwa')}",
-            "NIP_firmy": NIP,
-            "nr_karty": nr_karty,
+            "Nazwa banku": bank.nazwa,
+            "NIP firmy": NIP,
+            "numer karty": nr_karty,
             "imie": imie,
             "nazwisko": nazwisko,
             "kwota": kwota,
         }
         self.__archiwum.append(platnosc)
+        self.wb = self.wb.append(platnosc, ignore_index=True)
+        self.ZapiszDoPliku()
 
     def przeszukiwanieArchiwum(self):
         while(True):
