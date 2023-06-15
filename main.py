@@ -60,7 +60,7 @@ while(True):
                     for bank in centrum.przegladBankow():
                         for firma in bank.przegladFirm():
                             print(f"{firma.getNazwa()} {firma.getNIP()} {firma.getKonto().saldo}")
-                    time.sleep(5)
+                    time.sleep(3)
 
         case 2:
             os.system('cls')
@@ -84,7 +84,7 @@ while(True):
                     banki = centrum.przegladBankow()
                     for bank in banki:
                         print(bank.getNazwa())
-                    time.sleep(5)
+                    time.sleep(3)
 
 
         case 3:
@@ -119,7 +119,7 @@ while(True):
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
                             print(f"{osoba.getImie()} {osoba.getNazwisko()} {osoba.getKonto().getNrKonta()} {osoba.getKonto().getSaldo()}")
-                    time.sleep(5)
+                    time.sleep(3)
         case 4:
             os.system('cls')
             print("----Zarzadzanie kartami----")
@@ -171,14 +171,13 @@ while(True):
                 case 5:
                     imie = str(input("Podaj imie wlasciciela: "))
                     nazwisko = str(input("Podaj nazwisko wlasciciela: "))
-
+                    os.system('cls')
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
                                 for karta in osoba.getKonto().getKarty():
                                     print(f"{karta.getRodzaj()} {karta.getNr_karty()}")
-                    os.system('cls')
-                    time.sleep(5)
+                    time.sleep(3)
 
 
         case 5:
