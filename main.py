@@ -2,6 +2,7 @@ from centrumObslugiKart import CentrumObslugiKart
 import os
 import random
 
+
 centrum = CentrumObslugiKart()
 
 while(True):
@@ -192,8 +193,10 @@ while(True):
 
             match wybor:
                 case 1:
-                    pass
+                    centrum.ZapiszDoPliku()
+
                 case 2:
-                    pass
+                    centrum.OdczytZpliku()
+
                 case 3:
-                    pass
+                    centrum.przeszukiwanieArchiwum()
