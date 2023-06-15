@@ -1,4 +1,3 @@
-from openpyxl import Workbook, load_workbook
 from firma import FirmaTransportowa, Sklep, ZakladUslugowy
 from bank import Bank
 import pandas as pd
@@ -7,7 +6,6 @@ class CentrumObslugiKart:
         self.__archiwum = []
         self.__lista_bankow = []
         self.__lista_firm = []
-        self.wb = pd.DataFrame(columns=["Nazwa banku", "NIP firmy", "numer karty", "imie", "nazwisko", "kwota"])
 
     def poczatek_pliku(self):
         self.ZapiszDoPliku()
@@ -53,12 +51,8 @@ class CentrumObslugiKart:
 
 
     def ZapiszDoPliku(self):
-        self.wb.to_excel("Archiwum.xlsx", index=False)
-
-
-    def OdczytZpliku(self):
-        df = pd.read_excel("Archiwum.xlsx")
-        print(df)
+        excel = pd.DataFrame(self.__archiwum)
+        excel.to_excel("Archiwum.xlsx",index=False)
 
     def zarchiwizuj(self, bank_klienta, bank_firmy, NIP, nr_karty, kwota):
         platnosc = {
@@ -69,8 +63,7 @@ class CentrumObslugiKart:
             "kwota": kwota,
         }
         self.__archiwum.append(platnosc)
-        self.wb = self.wb.append(platnosc, ignore_index=True)
-        self.ZapiszDoPliku()
+
 
     def przeszukiwanieArchiwum(self):
         while(True):

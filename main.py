@@ -2,7 +2,7 @@ from centrumObslugiKart import CentrumObslugiKart
 import os
 import dill
 import sys
-
+import time
 
 #centrum = CentrumObslugiKart()
 
@@ -59,6 +59,8 @@ while(True):
                     for bank in centrum.przegladBankow():
                         for firma in bank.przegladFirm():
                             print(f"{firma.getNazwa()} {firma.getNIP()} {firma.getKonto().saldo}")
+                    os.system('cls')
+                    time.sleep(5)
 
         case 2:
             os.system('cls')
@@ -81,6 +83,8 @@ while(True):
                     banki = centrum.przegladBankow()
                     for bank in banki:
                         print(bank.getNazwa())
+                    os.system('cls')
+                    time.sleep(5)
 
 
         case 3:
@@ -114,7 +118,8 @@ while(True):
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
                             print(f"{osoba.getImie()} {osoba.getNazwisko()} {osoba.getKonto().getNrKonta()} {osoba.getKonto().getSaldo()}")
-
+                    os.system('cls')
+                    time.sleep(5)
         case 4:
             os.system('cls')
             print("----Zarzadzanie kartami----")
@@ -172,6 +177,8 @@ while(True):
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
                                 for karta in osoba.getKonto().getKarty():
                                     print(f"{karta.getRodzaj()} {karta.getNr_karty()}")
+                    os.system('cls')
+                    time.sleep(5)
 
         case 5:
             os.system('cls')
@@ -198,9 +205,8 @@ while(True):
             os.system('cls')
             print("----Zarzadzanie archiwum----")
             print("1. Zapisz dane do pliku")
-            print("2. Odczytaj dane z pliku")
-            print("3. Przeszukaj archiwum")
-            print("4. Wyswietl archiwum")
+            print("2. Przeszukaj archiwum")
+            print("3. Wyswietl archiwum")
             wybor = int(input("Wprowadz odpowiedni numer: "))
 
             match wybor:
@@ -208,12 +214,9 @@ while(True):
                     centrum.ZapiszDoPliku()
 
                 case 2:
-                    centrum.OdczytZpliku()
-
-                case 3:
                     centrum.przeszukiwanieArchiwum()
 
-                case 4:
+                case 3:
                     for platnosc in centrum.getArchiwum():
                         print(platnosc)
 
