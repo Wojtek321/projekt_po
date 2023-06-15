@@ -51,6 +51,7 @@ while(True):
                 case 3:
                     pass
 
+
         case 2:
             os.system('cls')
             print("----Zarzadzanie bankami----")
@@ -61,11 +62,15 @@ while(True):
 
             match wybor:
                 case 1:
-                    pass
+                    nazwaBankuDoDodania = str(input("Podaj nazwe banku"))
+                    centrum.dodajBank(nazwaBankuDoDodania)
                 case 2:
-                    pass
+                    nazwaBankuDoUsuniecia = str(input("Podaj nazwe banku"))
+                    for bank in centrum.przegladBankow():
+                        if nazwaBankuDoUsuniecia == bank.getNazwa():
+                            centrum.usunBank(nazwaBankuDoUsuniecia)
                 case 3:
-                    pass
+                    centrum.przegladBankow()
 
         case 3:
             os.system('cls')
