@@ -1,7 +1,14 @@
+from centrumObslugiKart import CentrumObslugiKart
 import os
 import random
-from centrumObslugiKart import CentrumObslugiKart
+import dill
+import sys
 
+
+# centrum = CentrumObslugiKart()
+
+with open('data.pkl', 'rb') as file:
+    centrum = dill.load(file)
 
 
 while(True):
