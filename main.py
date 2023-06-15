@@ -1,19 +1,20 @@
-from centrumObslugiKart import CentrumObslugiKart
 import os
 import random
 import pickle
+from centrumObslugiKart import CentrumObslugiKart
 
 
-centrum = CentrumObslugiKart()
+data_file = 'data.pkl'
 
-# file = open('data.pkl', 'rb')
-# centrum = pickle.load(file)
-# file.close()
+if os.path.exists(data_file):
+    with open(data_file, 'rb') as file:
+        centrum = pickle.load(file)
+else:
+    centrum = CentrumObslugiKart()
 
-while(True):
-    # file = open('data.pkl', 'wb')
-    # pickle.dump(centrum, file)
-    # file.close()
+while True:
+    with open(data_file, 'wb') as file:
+        pickle.dump(centrum, file)
 
     print("----Centrum Obslugi Kart----")
     print("1. Zarzadzaj firmami")
