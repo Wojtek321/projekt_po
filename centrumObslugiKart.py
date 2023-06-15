@@ -47,18 +47,19 @@ class CentrumObslugiKart:
                 znaleziony_bank = self.__lista_bankow[i]
                 szukane_konto = znaleziony_bank.znajdzKonto(nr_karty)
                 szukane_konto.saldo -= kwota
-                break
 
         for i in range(0,len(self.__lista_bankow)):
             if self.__lista_bankow[i] == bank_firmy:
                 znaleziony_bank_firmy = self.__lista_bankow[i]
-                for firma in znaleziony_bank_firmy.getFirmy:
+                for firma in znaleziony_bank_firmy.getFirmy():
                     firma_NIP = getattr(firma,'__NIP',None)
                     if firma_NIP == NIP:
                         szukana_firma = firma
                         szukane_konto_firmy = getattr(szukana_firma,'__konto',None)
                         szukane_konto_firmy.saldo -= kwota
-                        break
+
+        self.zarchiwizuj(bank_klienta,bank_firmy,NIP,nr_karty,kwota)
+
 
     def ZapiszDoPliku(self):
         self.wb.to_excel("Archiwum.xlsx", index=False)
@@ -68,13 +69,12 @@ class CentrumObslugiKart:
         df = pd.read_excel("Archiwum.xlsx")
         print(df)
 
-    def zarchiwizuj(self, bank, NIP, nr_karty, imie, nazwisko, kwota):
+    def zarchiwizuj(self, bank_klienta,bank_firmy, NIP, nr_karty, kwota):
         platnosc = {
-            "Nazwa banku": bank.nazwa,
+            "Nazwa banku klienta": f"{bank_klienta.getNazwa()}",
+            "Nazwa banku firmy": f"{bank_firmy.getNazwa()}",
             "NIP firmy": NIP,
             "numer karty": nr_karty,
-            "imie": imie,
-            "nazwisko": nazwisko,
             "kwota": kwota,
         }
         self.__archiwum.append(platnosc)
@@ -90,7 +90,7 @@ class CentrumObslugiKart:
             print("4. historia platnosci danej osoby")
             print("5. historia platnosci wzgledem danej kwoty")
             print("6. Wyjdz z archiwum")
-            wybor = input(print("Wybierz numer(1-5): "))
+            wybor = input("Wybierz numer(1-5): ")
             match wybor:
                 case 1:
                     NIP_firmy = input(print("Podaj NIP firmy: "))

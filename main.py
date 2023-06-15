@@ -1,6 +1,5 @@
 from centrumObslugiKart import CentrumObslugiKart
 import os
-import random
 import dill
 import sys
 
@@ -100,12 +99,6 @@ while(True):
                     nazwaBanku = str(input("Podaj nazwe banku: "))
                     nr_konta = str(input("Podaj numer konta: "))
 
-                    # numer_konta = "49102028922276300500000000"
-                    # liczby = []
-                    # for _ in range(int(numer_konta)):
-                    #     losowa_liczba = random.randint(0,9)
-                    #     liczby.append(losowa_liczba)
-                    # nr_konta = int(''.join(map(str, liczby)))
                     for bank in centrum.przegladBankow():
                         if bank.getNazwa() == nazwaBanku:
                             bank.dodajOsobe(imie,nazwisko,nr_konta,poczatkowe_saldo)

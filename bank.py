@@ -2,7 +2,7 @@ from osoba import Osoba
 from firma import FirmaTransportowa, ZakladUslugowy, Sklep
 class Bank:
     def __init__(self, nazwa):
-        self.__nazwa = nazwa
+        self.nazwa = nazwa
         self.__lista_osob = []
         self.__lista_firm = []
 
@@ -73,4 +73,4 @@ class Bank:
         return self.__lista_firm
 
     def getNazwa(self):
-        return self.__nazwa
+        return self.nazwa
