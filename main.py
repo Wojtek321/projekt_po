@@ -1,5 +1,6 @@
 from centrumObslugiKart import CentrumObslugiKart
 import os
+import random
 
 centrum = CentrumObslugiKart()
 
@@ -84,11 +85,31 @@ while(True):
 
             match wybor:
                 case 1:
-                    pass
+                    imie = str(input("Podaj imie osoby ktora chcesz dodac: "))
+                    nazwisko = str(input("Podaj nazwisko osoby ktora chcesz dodac: "))
+                    poczatkowe_saldo = int(input("Podaj poczatkowe saldo: "))
+                    nazwaBanku = str(input("Podaj nazwe banku: "))
+                    numer_konta = "49102028922276300500000000"
+                    liczby = []
+                    for _ in range(int(numer_konta)):
+                        losowa_liczba = random.randint(0,9)
+                        liczby.append(losowa_liczba)
+                    nr_konta = int(''.join(map(str, liczby)))
+                    for bank in centrum.przegladBankow():
+                        if bank.getNazwa() == nazwaBanku:
+                            bank.dodajOsobe(imie,nazwisko,nr_konta,poczatkowe_saldo)
+
                 case 2:
-                    pass
+                    imie_osoby = str(input("Podaj imie osoby do usuniecia: "))
+                    nazwisko_osoby = str(input("Podaj nazwisko osoby do usuniecia: "))
+                    for bank in centrum.przegladBankow():
+                        for osoba in bank.przegladOsob():
+                            if osoba.getImie() == imie_osoby and osoba.getNazwisko() == nazwisko_osoby:
+                                bank.usunOsobe(imie_osoby,nazwisko_osoby)
                 case 3:
-                    pass
+                    for bank in centrum.przegladBankow():
+                        for osoba in bank.przegladOsob():
+                            print(f"{osoba.getImie} {osoba.getNazwisko}")
 
         case 4:
             os.system('cls')
