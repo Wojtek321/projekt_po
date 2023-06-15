@@ -1,20 +1,17 @@
 from centrumObslugiKart import CentrumObslugiKart
 import os
 import random
-import pickle
+import dill
+import sys
 
 
-centrum = CentrumObslugiKart()
+# centrum = CentrumObslugiKart()
 
-# file = open('data.pkl', 'rb')
-# centrum = pickle.load(file)
-# file.close()
+with open('data.pkl', 'rb') as file:
+    centrum = dill.load(file)
+
 
 while(True):
-    # file = open('data.pkl', 'wb')
-    # pickle.dump(centrum, file)
-    # file.close()
-
     print("----Centrum Obslugi Kart----")
     print("1. Zarzadzaj firmami")
     print("2. Zarzadzaj bankami")
@@ -22,6 +19,7 @@ while(True):
     print("4. Zarzadzaj kartami oraz pieniedzmi")
     print("5. Dokonaj platnosci")
     print("6. Zarzadzaj archiwum")
+    print("7. Zakoncz prace")
     wybor = int(input("Wprowadz odpowiedni numer: "))
 
     match wybor:
@@ -209,3 +207,8 @@ while(True):
 
                 case 3:
                     centrum.przeszukiwanieArchiwum()
+
+        case 7:
+            with open('data.pkl', 'wb') as file:
+                dill.dump(centrum, file)
+            sys.exit(0)
