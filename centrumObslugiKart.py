@@ -1,4 +1,4 @@
-from openpyxl import Workbook, load_workbook
+# from openpyxl import Workbook, load_workbook
 from firma import FirmaTransportowa, Sklep, ZakladUslugowy
 from bank import Bank
 
@@ -7,13 +7,13 @@ class CentrumObslugiKart:
         self.__archiwum = []
         self.__lista_bankow = []
         self.__lista_firm = []
-        self.wb = Workbook()
+        # self.wb = Workbook()
 
-    def poczatek_pliku(self):
-
-        ws = self.wb.active
-        ws.append(["Nazwa banku","NIP firmy","numer karty","imie","nazwisko","kwota"])
-        self.wb.save("Archiwum.xlsx")
+    # def poczatek_pliku(self):
+    #
+    #     ws = self.wb.active
+    #     ws.append(["Nazwa banku","NIP firmy","numer karty","imie","nazwisko","kwota"])
+    #     self.wb.save("Archiwum.xlsx")
 
     def dodajFirme(self, rodzaj, nazwa, NIP, nr_konta, saldo):
         if rodzaj == "sklep":
@@ -66,31 +66,31 @@ class CentrumObslugiKart:
                         szukane_konto_firmy.saldo -= kwota
                         break
 
-    def ZapiszDoPliku(self):
-        wb = load_workbook('Archiwum.xlsx')
-        arkusz = wb.active
-        powtarzajace_sie_dane = []
-        for wiersz in arkusz.iter_rows(values_only=True):
-            for dane_excel in wiersz:
-                if dane_excel:
-                    for dane_archiwum in self.__archiwum:
-                        if any(dane_excel in dane for dane in dane_archiwum.values()):
-                            powtarzajace_sie_dane.append(dane_excel)
+    # def ZapiszDoPliku(self):
+    #     wb = load_workbook('Archiwum.xlsx')
+    #     arkusz = wb.active
+    #     powtarzajace_sie_dane = []
+    #     for wiersz in arkusz.iter_rows(values_only=True):
+    #         for dane_excel in wiersz:
+    #             if dane_excel:
+    #                 for dane_archiwum in self.__archiwum:
+    #                     if any(dane_excel in dane for dane in dane_archiwum.values()):
+    #                         powtarzajace_sie_dane.append(dane_excel)
+    #
+    #     brakujace_dane = []
+    #     for dane_archiwum in self.__archiwum:
+    #         if not any(dane == dane_excel for dane in dane_archiwum.values() for dane_excel in powtarzajace_sie_dane):
+    #             brakujace_dane.append(dane_archiwum)
+    #
+    #     for dane in brakujace_dane:
+    #         arkusz.append(list(dane.values()))
 
-        brakujace_dane = []
-        for dane_archiwum in self.__archiwum:
-            if not any(dane == dane_excel for dane in dane_archiwum.values() for dane_excel in powtarzajace_sie_dane):
-                brakujace_dane.append(dane_archiwum)
 
-        for dane in brakujace_dane:
-            arkusz.append(list(dane.values()))
-
-
-    def OdczytZpliku(self):
-        wb = load_workbook("Archiwum.xlsx")
-        ws = wb.active
-        for wiersz in ws.iter_rows(values_only=True):
-            print(wiersz)
+    # def OdczytZpliku(self):
+    #     wb = load_workbook("Archiwum.xlsx")
+    #     ws = wb.active
+    #     for wiersz in ws.iter_rows(values_only=True):
+    #         print(wiersz)
 
     def zarchiwizuj(self, bank, NIP, nr_karty, imie, nazwisko, kwota):
         platnosc = {
