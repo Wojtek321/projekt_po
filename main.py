@@ -70,7 +70,9 @@ while(True):
                         if nazwaBankuDoUsuniecia == bank.getNazwa():
                             centrum.usunBank(nazwaBankuDoUsuniecia)
                 case 3:
-                    centrum.przegladBankow()
+                    banki = centrum.przegladBankow()
+                    for bank in banki:
+                        print(bank.getNazwa)
 
         case 3:
             os.system('cls')
