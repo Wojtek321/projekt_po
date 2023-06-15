@@ -66,10 +66,25 @@ class CentrumObslugiKart:
                         szukane_konto_firmy.saldo -= kwota
                         break
 
-    def ZapiszDoPliku(self, bank, NIP, imie, nazwisko, kwota):
-        ws = self.wb.active
-        ws.append([bank.getNazwa()],[NIP],[imie],[nazwisko],[kwota])
-        self.wb.save("Archiwum.xlsx")
+    def ZapiszDoPliku(self):
+        wb = load_workbook('Archiwum.xlsx')
+        arkusz = wb.active
+        powtarzajace_sie_dane = []
+        for wiersz in arkusz.iter_rows(values_only=True):
+            for dane_excel in wiersz:
+                if dane_excel:
+                    for dane_archiwum in self.__archiwum:
+                        if any(dane_excel in dane for dane in dane_archiwum.values()):
+                            powtarzajace_sie_dane.append(dane_excel)
+
+        brakujace_dane = []
+        for dane_archiwum in self.__archiwum:
+            if not any(dane in powtarzajace_sie_dane for dane in dane_archiwum.values()):
+                brakujace_dane.append(dane_archiwum)
+
+        for dane in brakujace_dane:
+            arkusz.append(list(dane.values()))
+
 
     def OdczytZpliku(self):
         wb = load_workbook("Archiwum.xlsx")
