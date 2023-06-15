@@ -98,12 +98,14 @@ while(True):
                     nazwisko = str(input("Podaj nazwisko osoby ktora chcesz dodac: "))
                     poczatkowe_saldo = int(input("Podaj poczatkowe saldo: "))
                     nazwaBanku = str(input("Podaj nazwe banku: "))
-                    numer_konta = "49102028922276300500000000"
-                    liczby = []
-                    for _ in range(int(numer_konta)):
-                        losowa_liczba = random.randint(0,9)
-                        liczby.append(losowa_liczba)
-                    nr_konta = int(''.join(map(str, liczby)))
+                    nr_konta = str(input("Podaj numer konta: "))
+
+                    # numer_konta = "49102028922276300500000000"
+                    # liczby = []
+                    # for _ in range(int(numer_konta)):
+                    #     losowa_liczba = random.randint(0,9)
+                    #     liczby.append(losowa_liczba)
+                    # nr_konta = int(''.join(map(str, liczby)))
                     for bank in centrum.przegladBankow():
                         if bank.getNazwa() == nazwaBanku:
                             bank.dodajOsobe(imie,nazwisko,nr_konta,poczatkowe_saldo)
@@ -118,7 +120,7 @@ while(True):
                 case 3:
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
-                            print(f"{osoba.getImie} {osoba.getNazwisko}")
+                            print(f"{osoba.getImie()} {osoba.getNazwisko()}")
 
         case 4:
             os.system('cls')

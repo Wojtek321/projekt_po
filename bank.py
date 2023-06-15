@@ -30,10 +30,8 @@ class Bank:
             if firma.getNIP() == NIP:
                 self.__lista_firm.remove(firma)
 
-    def przegladFirm(self, rodzaj):
-        for firma in self.__lista_firm:
-            if firma.getRodzaj == rodzaj:
-                print(f"Sklep: {firma.getNazwa()}, NIP: {firma.getNIP()}")
+    def przegladFirm(self):
+        return self.__lista_firm
 
     def dodajKarte(self, imie, nazwisko, rodzaj, nr_karty):
         for osoba in self.__lista_osob:
