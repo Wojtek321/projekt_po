@@ -79,7 +79,7 @@ class CentrumObslugiKart:
 
         brakujace_dane = []
         for dane_archiwum in self.__archiwum:
-            if not any(dane in powtarzajace_sie_dane for dane in dane_archiwum.values()):
+            if not any(dane == dane_excel for dane in dane_archiwum.values() for dane_excel in powtarzajace_sie_dane):
                 brakujace_dane.append(dane_archiwum)
 
         for dane in brakujace_dane:
