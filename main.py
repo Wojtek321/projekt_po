@@ -5,7 +5,7 @@ import dill
 import sys
 
 
-# centrum = CentrumObslugiKart()
+#centrum = CentrumObslugiKart()
 
 with open('data.pkl', 'rb') as file:
     centrum = dill.load(file)
