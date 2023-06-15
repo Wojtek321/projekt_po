@@ -162,7 +162,26 @@ while(True):
 
         case 5:
             os.system('cls')
-            pass
+            NIP = str(input("Podaj NIP firmy, do ktorej maja byc przelane pieniadze: "))
+            nr_karty = str(input("Podaj numer karty, ktora dokonana bedze transakcja: "))
+            kwota = float(input("Podaj kwote: "))
+            bank_firmy = None
+            bank_klienta = None
+
+            for bank in centrum.przegladBankow():
+                for firma in bank.przegladFirm():
+                    if firma.getNIP() == NIP:
+                        bank_firmy = bank
+
+            for bank in centrum.przegladBankow():
+                for osoba in bank.przegladOsob():
+                    for karta in osoba.konto.getKarty()
+                        if karta.getNr_karty() == nr_karty:
+                            bank_klienta = bank
+
+
+            centrum.platnosc(NIP, nr_karty, kwota, bank_klienta, bank_firmy)
+
         case 6:
             os.system('cls')
             print("----Zarzadzanie archiwum----")
