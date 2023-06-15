@@ -1,12 +1,20 @@
 from centrumObslugiKart import CentrumObslugiKart
 import os
 import random
+import pickle
 
 
 centrum = CentrumObslugiKart()
 
+# file = open('data.pkl', 'rb')
+# centrum = pickle.load(file)
+# file.close()
+
 while(True):
-    os.system('cls')
+    # file = open('data.pkl', 'wb')
+    # pickle.dump(centrum, file)
+    # file.close()
+
     print("----Centrum Obslugi Kart----")
     print("1. Zarzadzaj firmami")
     print("2. Zarzadzaj bankami")
@@ -65,17 +73,18 @@ while(True):
 
             match wybor:
                 case 1:
-                    nazwaBankuDoDodania = str(input("Podaj nazwe banku"))
+                    nazwaBankuDoDodania = str(input("Podaj nazwe banku: "))
                     centrum.dodajBank(nazwaBankuDoDodania)
                 case 2:
-                    nazwaBankuDoUsuniecia = str(input("Podaj nazwe banku"))
+                    nazwaBankuDoUsuniecia = str(input("Podaj nazwe banku: "))
                     for bank in centrum.przegladBankow():
                         if nazwaBankuDoUsuniecia == bank.getNazwa():
                             centrum.usunBank(nazwaBankuDoUsuniecia)
                 case 3:
                     banki = centrum.przegladBankow()
                     for bank in banki:
-                        print(bank.getNazwa)
+                        print(bank.getNazwa())
+
 
         case 3:
             os.system('cls')
@@ -176,7 +185,7 @@ while(True):
 
             for bank in centrum.przegladBankow():
                 for osoba in bank.przegladOsob():
-                    for karta in osoba.konto.getKarty()
+                    for karta in osoba.konto.getKarty():
                         if karta.getNr_karty() == nr_karty:
                             bank_klienta = bank
 
