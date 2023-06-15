@@ -5,7 +5,7 @@ class Firma(ABC):
     def __init__(self, nazwa, NIP, nr_konta, saldo):
         self.__nazwa = nazwa
         self.__NIP = NIP
-        self.__Konto = Konto(nr_konta, saldo)
+        self.__konto = Konto(nr_konta, saldo)
 
     @abstractmethod
     def getRodzaj(self):

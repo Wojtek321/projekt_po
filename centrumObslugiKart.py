@@ -22,10 +22,8 @@ class CentrumObslugiKart:
 
     def usunFirme(self, NIP):
         for firma in self.__lista_firm:
-            firma_NIP = getattr(firma,'NIP',None)
-            if firma_NIP == NIP:
+            if firma.getNIP() == NIP:
                 self.__lista_firm.remove(firma)
-                break
 
     def przegladFirm(self):
         return self.__lista_firm
@@ -37,8 +35,7 @@ class CentrumObslugiKart:
 
     def usunBank(self,nazwa):
         for bank in self.__lista_bankow:
-            bank_nazwa = getattr(bank,'nazwa')
-            if bank_nazwa == nazwa:
+            if bank.getNazwa() == nazwa:
                 self.__lista_bankow.remove(bank)
 
     def przegladBankow(self):
@@ -56,10 +53,10 @@ class CentrumObslugiKart:
             if self.__lista_bankow[i] == bank_firmy:
                 znaleziony_bank_firmy = self.__lista_bankow[i]
                 for firma in znaleziony_bank_firmy.getFirmy:
-                    firma_NIP = getattr(firma,'NIP',None)
+                    firma_NIP = getattr(firma,'__NIP',None)
                     if firma_NIP == NIP:
                         szukana_firma = firma
-                        szukane_konto_firmy = getattr(szukana_firma,'konto',None)
+                        szukane_konto_firmy = getattr(szukana_firma,'__konto',None)
                         szukane_konto_firmy.saldo -= kwota
                         break
 
