@@ -59,7 +59,7 @@ class Bank:
 
     def znajdzKonto(self, nr_karty):
         for osoba in self.__lista_osob:
-            for karta in osoba.getKonto():
+            for karta in osoba.getKonto().getKarty():
                 if karta.getNr_karty() == nr_karty:
                     return osoba.getKonto()
 

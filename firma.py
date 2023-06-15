@@ -13,6 +13,9 @@ class Firma(ABC):
     def getNazwa(self):
         return self.__nazwa
 
+    def getKonto(self):
+        return self.__konto
+
     def getNIP(self):
         return self.__NIP
 

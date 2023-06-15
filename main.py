@@ -1,11 +1,10 @@
 from centrumObslugiKart import CentrumObslugiKart
 import os
-import random
 import dill
 import sys
 
 
-# centrum = CentrumObslugiKart()
+#centrum = CentrumObslugiKart()
 
 with open('data.pkl', 'rb') as file:
     centrum = dill.load(file)
@@ -57,9 +56,9 @@ while(True):
                                 bank.usunFirme(NIP)
 
                 case 3:
-                    firmy = centrum.przegladFirm()
-                    for firma in firmy:
-                        print(f"{firma.getNazwa()} {firma.getNIP()}")
+                    for bank in centrum.przegladBankow():
+                        for firma in bank.przegladFirm():
+                            print(f"{firma.getNazwa()} {firma.getNIP()} {firma.getKonto().saldo}")
 
         case 2:
             os.system('cls')
@@ -193,7 +192,6 @@ while(True):
                         if karta.getNr_karty() == nr_karty:
                             bank_klienta = bank
 
-
             centrum.platnosc(NIP, nr_karty, kwota, bank_klienta, bank_firmy)
 
         case 6:
@@ -202,6 +200,7 @@ while(True):
             print("1. Zapisz dane do pliku")
             print("2. Odczytaj dane z pliku")
             print("3. Przeszukaj archiwum")
+            print("4. Wyswietl archiwum")
             wybor = int(input("Wprowadz odpowiedni numer: "))
 
             match wybor:
@@ -213,6 +212,10 @@ while(True):
 
                 case 3:
                     centrum.przeszukiwanieArchiwum()
+
+                case 4:
+                    for platnosc in centrum.getArchiwum():
+                        print(platnosc)
 
         case 7:
             with open('data.pkl', 'wb') as file:
