@@ -70,7 +70,7 @@ class CentrumObslugiKart:
 
     def zarchiwizuj(self, bank, NIP, nr_karty, imie, nazwisko, kwota):
         platnosc = {
-            "Nazwa banku": bank.nazwa,
+            "Nazwa banku": f"{bank.getNazwa()}",
             "NIP firmy": NIP,
             "numer karty": nr_karty,
             "imie": imie,
@@ -90,7 +90,7 @@ class CentrumObslugiKart:
             print("4. historia platnosci danej osoby")
             print("5. historia platnosci wzgledem danej kwoty")
             print("6. Wyjdz z archiwum")
-            wybor = input(print("Wybierz numer(1-5): "))
+            wybor = input("Wybierz numer(1-5): ")
             match wybor:
                 case 1:
                     NIP_firmy = input(print("Podaj NIP firmy: "))

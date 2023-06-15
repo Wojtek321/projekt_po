@@ -9,7 +9,7 @@ class Konto:
     def dodajKarte(self, rodzaj, nr_karty):
         karta = None
         if rodzaj == "kredytowa":
-            limit = input(print("Podaj limit karty kredytowej: "))
+            limit = input("Podaj limit karty kredytowej: ")
             karta = KartaKredytowa(nr_karty, limit)
         elif rodzaj == "bankomatowa":
             karta = KartaBankomatowa(nr_karty)
@@ -33,3 +33,6 @@ class Konto:
 
     def getSaldo(self):
         return self.saldo
+
+    def getNrKonta(self):
+        return self.nr_konta

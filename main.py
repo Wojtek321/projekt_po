@@ -100,12 +100,6 @@ while(True):
                     nazwaBanku = str(input("Podaj nazwe banku: "))
                     nr_konta = str(input("Podaj numer konta: "))
 
-                    # numer_konta = "49102028922276300500000000"
-                    # liczby = []
-                    # for _ in range(int(numer_konta)):
-                    #     losowa_liczba = random.randint(0,9)
-                    #     liczby.append(losowa_liczba)
-                    # nr_konta = int(''.join(map(str, liczby)))
                     for bank in centrum.przegladBankow():
                         if bank.getNazwa() == nazwaBanku:
                             bank.dodajOsobe(imie,nazwisko,nr_konta,poczatkowe_saldo)
@@ -120,7 +114,7 @@ while(True):
                 case 3:
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
-                            print(f"{osoba.getImie()} {osoba.getNazwisko()}")
+                            print(f"{osoba.getImie()} {osoba.getNazwisko()} {osoba.getKonto().getNrKonta()} {osoba.getKonto().getSaldo()}")
 
         case 4:
             os.system('cls')
@@ -129,6 +123,7 @@ while(True):
             print("2. Usun Karte")
             print("3. Wplac pieniadze")
             print("4. Wyplac pieniadze")
+            print("5. Przegladaj karty")
             wybor = int(input("Wprowadz odpowiedni numer: "))
 
             match wybor:
@@ -169,6 +164,15 @@ while(True):
                         for osoba in bank.przegladOsob():
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
                                 osoba.konto.wyplac(kwota)
+                case 5:
+                    imie = str(input("Podaj imie wlasciciela: "))
+                    nazwisko = str(input("Podaj nazwisko wlasciciela: "))
+
+                    for bank in centrum.przegladBankow():
+                        for osoba in bank.przegladOsob():
+                            if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
+                                for karta in osoba.getKonto().getKarty():
+                                    print(f"{karta.getRodzaj()} {karta.getNr_karty()}")
 
         case 5:
             os.system('cls')
