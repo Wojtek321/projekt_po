@@ -1,4 +1,4 @@
-# from openpyxl import Workbook, load_workbook
+from openpyxl import Workbook, load_workbook
 from firma import FirmaTransportowa, Sklep, ZakladUslugowy
 from bank import Bank
 
