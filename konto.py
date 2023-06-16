@@ -1,4 +1,5 @@
 from karta import KartaKredytowa, KartaBankomatowa, KartaDebetowa
+from Exceptions import NiepoprawnyRodzajException
 
 class Konto:
     def __init__(self, nr_konta, saldo):
@@ -7,6 +8,10 @@ class Konto:
         self.lista_kart = []
 
     def dodajKarte(self, rodzaj, nr_karty):
+
+        if rodzaj not in ["kredytowa", "bankomatowa", "debetowa"]:
+            raise NiepoprawnyRodzajException()
+
         karta = None
         if rodzaj == "kredytowa":
             limit = input("Podaj limit karty kredytowej: ")
@@ -15,6 +20,7 @@ class Konto:
             karta = KartaBankomatowa(nr_karty)
         elif rodzaj == "debetowa":
             karta = KartaDebetowa(nr_karty)
+
         self.lista_kart.append(karta)
 
     def usunKarte(self, nr_karty):

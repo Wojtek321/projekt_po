@@ -1,4 +1,5 @@
 from centrumObslugiKart import CentrumObslugiKart
+from Exceptions import NiepoprawnyRodzajException, NiepoprawnyNumerKartyException
 import os
 import dill
 import sys
@@ -137,10 +138,15 @@ while(True):
                     rodzaj = str(input("Podaj rodzaj karty(kredytowa, debetowa, bankomatowa): "))
                     nr_karty = str(input("Podaj numer karty: "))
 
+
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
-                                osoba.konto.dodajKarte(rodzaj, nr_karty)
+                                try:
+                                    osoba.konto.dodajKarte(rodzaj, nr_karty)
+                                except NiepoprawnyRodzajException as e:
+                                    print(e.args[0])
+
                 case 2:
                     imie = str(input("Podaj imie wlasciciela: "))
                     nazwisko = str(input("Podaj nazwisko wlasciciela: "))
@@ -148,7 +154,10 @@ while(True):
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
-                                osoba.konto.usunKarte(nr_karty)
+                                try:
+                                    osoba.konto.usunKarte(nr_karty)
+                                except NiepoprawnyRodzajException as e:
+                                    print(e.args[0])
 
                 case 3:
                     imie = str(input("Podaj imie wlasciciela: "))
@@ -169,9 +178,10 @@ while(True):
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
                                 osoba.konto.wyplac(kwota)
                 case 5:
+                    os.system('cls')
                     imie = str(input("Podaj imie wlasciciela: "))
                     nazwisko = str(input("Podaj nazwisko wlasciciela: "))
-                    os.system('cls')
+
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:

@@ -28,7 +28,7 @@ class KartaDebetowa(Karta):
         super().__init__(nr_karty)
 
     def getRodzaj(self):
-        return "kredytowa"
+        return "debetowa"
 
 
 class KartaBankomatowa(Karta):
@@ -36,4 +36,4 @@ class KartaBankomatowa(Karta):
         super().__init__(nr_karty)
 
     def getRodzaj(self):
-        return "kredytowa"
+        return "bankomatowa"
