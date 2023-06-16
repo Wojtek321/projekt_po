@@ -50,9 +50,10 @@ class CentrumObslugiKart:
                 if firma.getNIP() == NIP:
                     firma.getKonto().wplac(kwota)
 
-            self.zarchiwizuj(bank_klienta,bank_firmy,NIP,nr_karty,kwota)
+            self.zarchiwizuj(bank_klienta,bank_firmy,NIP,nr_karty,kwota, "Udany")
         else:
             print("karta nie zostala zautoryzowana")
+            self.zarchiwizuj(bank_klienta, bank_firmy, NIP, nr_karty, kwota, "Nieudany")
             time.sleep(3)
 
 
@@ -60,13 +61,14 @@ class CentrumObslugiKart:
         excel = pd.DataFrame(self.__archiwum)
         excel.to_excel("Archiwum.xlsx",index=False)
 
-    def zarchiwizuj(self, bank_klienta, bank_firmy, NIP, nr_karty, kwota):
+    def zarchiwizuj(self, bank_klienta, bank_firmy, NIP, nr_karty, kwota, status):
         platnosc = {
             "Nazwa banku klienta": f"{bank_klienta.getNazwa()}",
             "Nazwa banku firmy": f"{bank_firmy.getNazwa()}",
             "NIP firmy": NIP,
             "numer karty": nr_karty,
             "kwota": kwota,
+            "status": status
         }
         self.__archiwum.append(platnosc)
 

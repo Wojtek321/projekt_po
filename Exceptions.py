@@ -11,3 +11,8 @@ class NiepoprawnyRodzajException(MyException):
 class NiepoprawnyNumerKartyException(MyException):
     def __init__(self):
         super().__init__("Podano niepoprawny numer karty.")
+
+
+class ZaMaloSrodkowException(MyException):
+    def __init__(self):
+        super().__init__("Na danym koncie jest za malo srodkow.")

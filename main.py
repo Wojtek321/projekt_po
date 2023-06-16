@@ -1,14 +1,14 @@
 from centrumObslugiKart import CentrumObslugiKart
-from Exceptions import NiepoprawnyRodzajException, NiepoprawnyNumerKartyException
+from Exceptions import NiepoprawnyRodzajException, NiepoprawnyNumerKartyException, ZaMaloSrodkowException
 import os
 import dill
 import sys
 import time
 
-#centrum = CentrumObslugiKart()
+centrum = CentrumObslugiKart()
 
-with open('data.pkl', 'rb') as file:
-    centrum = dill.load(file)
+#with open('data.pkl', 'rb') as file:
+    #centrum = dill.load(file)
 
 
 while(True):
@@ -156,7 +156,7 @@ while(True):
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
                                 try:
                                     osoba.konto.usunKarte(nr_karty)
-                                except NiepoprawnyRodzajException as e:
+                                except NiepoprawnyNumerKartyException as e:
                                     print(e.args[0])
 
                 case 3:
@@ -176,7 +176,11 @@ while(True):
                     for bank in centrum.przegladBankow():
                         for osoba in bank.przegladOsob():
                             if osoba.getImie() == imie and osoba.getNazwisko() == nazwisko:
-                                osoba.konto.wyplac(kwota)
+                                try:
+                                    osoba.konto.wyplac(kwota)
+                                except ZaMaloSrodkowException as e:
+                                    print(e.args[0])
+
                 case 5:
                     os.system('cls')
                     imie = str(input("Podaj imie wlasciciela: "))
@@ -229,6 +233,7 @@ while(True):
                 case 3:
                     for platnosc in centrum.getArchiwum():
                         print(platnosc)
+                    time.sleep(3)
 
         case 7:
             with open('data.pkl', 'wb') as file:
